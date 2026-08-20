@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bungee", "Rubik", sans-serif;
+  --font-body: "Rubik", sans-serif;
+  --color-vice-pink: #ff2d78;
+  --color-vice-cyan: #2de1fc;
+  --color-vice-sun: #ffb14e;
+  --color-vice-lime: #8dff57;
+  --color-vice-navy: #160a30;
+  --color-vice-panel: #1c0f3d;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-body);
+  background: #160a30;
+}
+
+canvas {
+  display: block;
+}
+
+/* ---------- GTA-style skewed panels ---------- */
+.vice-panel {
+  background: linear-gradient(180deg, rgba(28, 15, 61, 0.92), rgba(18, 8, 40, 0.92));
+  border: 2px solid rgba(45, 225, 252, 0.35);
+  border-left: 5px solid #ff2d78;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35), 0 0 24px rgba(255, 45, 120, 0.12);
+  transform: skewX(-8deg);
+}
+.vice-panel > .unskew {
+  transform: skewX(8deg);
+}
+
+.hud-shadow {
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.85), 0 0 18px rgba(255, 45, 120, 0.45);
+}
+
+.title-vice {
+  text-shadow:
+    4px 4px 0 #ff2d78,
+    -3px -3px 0 #2de1fc,
+    0 14px 42px rgba(255, 45, 120, 0.55);
+}
+
+.btn-vice {
+  font-family: var(--font-display);
+  transform: skewX(-8deg);
+  border: 3px solid #160a30;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.45), 0 0 26px rgba(255, 45, 120, 0.5);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+.btn-vice > span {
+  display: inline-block;
+  transform: skewX(8deg);
+}
+.btn-vice:hover {
+  transform: skewX(-8deg) translateY(-3px) scale(1.03);
+  filter: brightness(1.12);
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.45), 0 0 40px rgba(45, 225, 252, 0.65);
+}
+.btn-vice:active {
+  transform: skewX(-8deg) translateY(2px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.key-cap {
+  font-family: var(--font-display);
+  font-size: 11px;
+  line-height: 1;
+  padding: 6px 8px 5px;
+  background: #241448;
+  border: 1.5px solid rgba(45, 225, 252, 0.5);
+  border-bottom-width: 4px;
+  border-radius: 5px;
+  color: #2de1fc;
+  min-width: 26px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* ---------- animations ---------- */
+@keyframes toast-in {
+  0% { transform: translateY(-26px) skewX(-8deg) scale(0.7); opacity: 0; }
+  14% { transform: translateY(0) skewX(-8deg) scale(1.06); opacity: 1; }
+  22% { transform: translateY(0) skewX(-8deg) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-14px) skewX(-8deg); }
+}
+.toast-anim {
+  animation: toast-in 1.9s cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
+}
+
+@keyframes stamp-in {
+  0% { transform: scale(3.2) rotate(-14deg); opacity: 0; }
+  55% { transform: scale(0.94) rotate(-7deg); opacity: 1; }
+  75% { transform: scale(1.05) rotate(-8deg); }
+  100% { transform: scale(1) rotate(-8deg); opacity: 1; }
+}
+.stamp-anim {
+  animation: stamp-in 0.5s cubic-bezier(0.2, 1.4, 0.3, 1) forwards;
+}
+
+@keyframes star-pop {
+  0% { transform: scale(0.3); }
+  60% { transform: scale(1.45); }
+  100% { transform: scale(1); }
+}
+.star-anim {
+  animation: star-pop 0.35s cubic-bezier(0.2, 1.4, 0.3, 1);
+}
+
+@keyframes pulse-warn {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.pulse-warn {
+  animation: pulse-warn 0.7s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.float-slow {
+  animation: float-slow 3.4s ease-in-out infinite;
+}
+
+@keyframes scan-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 6px; }
+}
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.16) 0px,
+    rgba(0, 0, 0, 0.16) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: scan-drift 0.9s linear infinite;
+}
+
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 52%, rgba(10, 4, 24, 0.55) 100%);
+}
+
+.sun-stripes {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 14px,
+    rgba(22, 10, 48, 0.9) 14px 20px
+  );
+  -webkit-mask-image: linear-gradient(180deg, transparent 30%, black 78%);
+  mask-image: linear-gradient(180deg, transparent 30%, black 78%);
+}
+
+::-webkit-scrollbar { display: none; }
